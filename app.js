@@ -1,4 +1,5 @@
 const path = require("path");
+require("dotenv").config();
 
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -61,9 +62,7 @@ app.use((error, req, res, next) => {
 });
 
 mongoose
-  .connect(
-    "mongodb+srv://Abisekh:OVOJJtwX1oMJ8dxp@cluster0.icqpjek.mongodb.net/messages?retryWrites=true"
-  )
+  .connect(process.env.MONGO_URL)
   .then((result) => {
     const server = app.listen(8080);
     const io = require("./socket").init(server);
